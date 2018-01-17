@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!--
+		pagename:  
+			name:包名
+			extends:继承，可以继承父类中所有 配置
+			namespace:命名空间
+			hello
+			/user/hello
+			/order/hello
+		action:
+			name:动作类
+			class:动作类全限定名称
+			method:动作类方法名
+		result:结果视图
+			name:和方法返回值保持一致
+	 -->
+	 <!-- struts2会默认放行以action为后缀名或者无后缀名的 -->
+	 
+	 <constant name="struts.action.extension" value="action,do,"></constant>
+	 
+	 <!-- 开发者模式  修改struts.xml后不用重启服务-->
+	 <constant name="struts.devMode" value="true"></constant>
+	 
+	<package name="demo" extends="struts-default" namespace="/demo">
+	 	<action name="hello" class="struts.action.HelloAction" method="sayHello">
+			<result name="success">/success.jsp</result>
+		</action>
+	 	<action name="demo1" class="struts.action.Demo1Action" method="demo1">
+			<result name="success">/success.jsp</result>
+		</action>
+	 	<action name="demo2" class="struts.action.Demo2Action">
+			<result name="success">/success.jsp</result>
+		</action>
+	</package>
+	 
+	<!-- 第一种action配置方式 -->
+<!-- 	<package name="user" extends="struts-default" namespace="/user">
+
+		<action name="addUser" class="struts.action.UserAction" method="addUser">
+			<result name="success">/success.jsp</result>
+		</action>
+		<action name="deleteUser" class="struts.action.UserAction" method="deleteUser">
+			<result name="success">/success.jsp</result>
+		</action>
+		<action name="editUser" class="struts.action.UserAction" method="editUser">
+			<result name="success">/success.jsp</result>
+		</action>
+		<action name="findUser" class="struts.action.UserAction" method="findUser">
+			<result name="success">/success.jsp</result>
+		</action>
+	</package> -->
+	<!-- 第二种action配置方式  通配符   单一通配* -->
+<!-- 	<package name="user" extends="struts-default" namespace="/user">
+		<action name="*User" class="struts.action.UserAction" method="{1}User">
+			<result name="success">/success.jsp</result>
+		</action>
+	</package> -->
+	<!-- 第二种action配置方式  通配符   全通配** -->
+<!-- 	<package name="user" extends="struts-default" namespace="/user">
+		<action name="*-*" class="struts.action.{2}Action" method="{1}{2}">
+			<result name="success">/success.jsp</result>
+		</action>
+	</package> -->
+	<!-- 第三种action配置方式 
+		动态配置：了解
+		动作名!方法名
+		需要开启动态方法调用
+	-->
+	<constant name="struts.enable.DynamicMethodInvocation" value="true"></constant>
+	<package name="user" extends="struts-default" namespace="/user">
+		<action name="user" class="struts.action.UserAction">
+			<result name="success">/success.jsp</result>
+		</action>
+	</package>
+	
+
+</struts>
